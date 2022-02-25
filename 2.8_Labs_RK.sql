@@ -1,3 +1,5 @@
+USE sakila;
+
 -- 1. Write a query to display for each store its store ID, city, and country.
 
 SELECT 
@@ -24,6 +26,7 @@ JOIN store as st
 ON s.store_id = st.store_id
 GROUP BY st.store_id; 
 
+-- Does it make sense to convert the sum(amount) to dollar on query level? Wouldn't that be something for visualisation?
 
 -- 3. Which film categories are longest?
 
@@ -86,12 +89,12 @@ ON i.inventory_id = r.inventory_id
 WHERE i.store_id= 1 and isnull(return_date)=0
 GROUP BY i.inventory_id;
 
--- movie is available - not only one but 4 copies
+-- movie is available - not only 1 but 4 copies
 
 -- 7. Get all pairs of actors that worked together. -> Forget pairs. New Question: Get all actors, that worked in every movie
 
 
--- > No Solution yet
+-- > No Solution yet - task postponed
 film_actor
 fa.actor_id
 fa.film_id
@@ -99,6 +102,7 @@ fa.film_id
 
 
 -- 8. Get all customers that have rented the same film more than 3 times.
+
 -- Wasn't able to solve 7 properly -> therefor return all customers who rented any movie more than 3 times
 
 SELECT 
@@ -116,12 +120,16 @@ HAVING num_rent =3;
 -- 9. For each film, list actor that has acted in more films.
 
 SELECT
-	concat(a.first_name," ",a.last_name),
-    count(fa.film_id)
+	title,
+	concat(a.first_name," ",a.last_name) as actor_name,
+    count(fa.film_id) over(partition by a.actor_id) as movie_counter
 FROM film_actor as fa
-JOIN actor as a
+LEFT JOIN actor as a
 ON fa.actor_id = a.actor_id
-GROUP BY a.actor_id
-HAVING count(fa.film_id)>1;
+LEFT JOIN film as f
+ON fa.film_id = f.film_id
+ORDER BY title;
+
+
 
 
