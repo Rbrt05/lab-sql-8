@@ -1,5 +1,5 @@
 
-USE sakila;
+git statusUSE sakila;
 
 -- 1. Write a query to display for each store its store ID, city, and country.
 
@@ -96,15 +96,12 @@ GROUP BY i.inventory_id;
 
 
 -- > No Solution yet - task postponed
-film_actor
-fa.actor_id
-fa.film_id
 
 
 
 -- 8. Get all customers that have rented the same film more than 3 times.
 
--- Wasn't able to solve 7 properly -> therefor return all customers who rented any movie more than 3 times
+-- Wasn't able to solve 7 properly -> therefore return all customers who rented any movie more than 3 times
 
 SELECT 
 	concat(c.first_name," ",c.last_name) as full_name,
@@ -118,7 +115,7 @@ GROUP BY i.film_id, concat(c.first_name," ",c.last_name)
 HAVING num_rent =3;
 
 
--- 9. For each film, list actor that has acted in more films.
+-- 9. For each film, list actor that has acted in more films. 
 
 SELECT
 	title,
